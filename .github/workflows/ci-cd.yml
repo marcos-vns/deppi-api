@@ -27,6 +27,8 @@ jobs:
         run: npm ci
 
       - name: Validar o schema do Prisma
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma validate
 
       - name: Verificar erros de TypeScript

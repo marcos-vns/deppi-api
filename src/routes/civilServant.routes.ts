@@ -1,5 +1,5 @@
 import { CivilServantController } from "@/controllers/CivilServantController";
-import { AuthMiddleware } from "@/middlewares/AuthMiddleware";
+import { AuthMiddleware } from "@/middlewares/authMiddleware";
 import { permissionMiddleware } from "@/middlewares/permission.middleware";
 import { validate } from "@/middlewares/validate.middleware";
 import { updateCivilServantSchema } from "@/schemas/registercivilservant";

@@ -1,5 +1,5 @@
 import { StudentControler } from "@/controllers/StudentController";
-import { AuthMiddleware } from "@/middlewares/AuthMiddleware";
+import { AuthMiddleware } from "@/middlewares/authMiddleware";
 import { permissionMiddleware } from "@/middlewares/permission.middleware";
 import { validate } from "@/middlewares/validate.middleware";
 import { updateStudentSchema } from "@/schemas/registerstudent.schema";

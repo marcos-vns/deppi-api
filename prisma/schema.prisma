@@ -242,6 +242,8 @@ model Campus {
 
   servants CivilServant[]
   courses  Course[]
+
+  @@map("campus")
 }
 
 enum EnrollmentStatusEnum {

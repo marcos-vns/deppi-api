@@ -1,7 +1,7 @@
 import { app } from "./app";
 import { prisma } from "./prisma/client";
 
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 3333;
 
 app.get("/health", async (req, res) => {
   try {

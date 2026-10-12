@@ -52,12 +52,62 @@ export class AuthController {
     return response.json(result);
   }
 
-  async me(request: Request, response: Response) {
+  
+async me(request: Request, response: Response) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: request.user.id,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      roles: {
+        select: {
+          role: {
+            select: {
+              slug: true,
+              name: true,
+              permissions: {
+                select: {
+                  permission: {
+                    select: {
+                      slug: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
 
-    const users = await prisma.user.findMany();
-
-    console.log(users);
-
-    return response.json(users);
+  if (!user) {
+    return response.status(401).json({
+      error: "Usuário não encontrado",
+    });
   }
+
+  const roles = user.roles.map(({ role }) => role.slug);
+
+  const permissions = [
+    ...new Set(
+      user.roles.flatMap(({ role }) =>
+        role.permissions.map(({ permission }) => permission.slug)
+      )
+    ),
+  ];
+
+  return response.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    roles,
+    permissions,
+  });
+}
+
 }

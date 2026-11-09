@@ -6,19 +6,11 @@ export async function AuthMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({
-      error: "Token não informado",
-    });
-  }
-
-  const [, token] = authHeader.split(" ");
+  const token = req.cookies?.accessToken ?? req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({
-      error: "Token inválido",
+      error: "Token não encontrado",
     });
   }
 

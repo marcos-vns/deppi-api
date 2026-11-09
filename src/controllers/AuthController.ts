@@ -57,12 +57,20 @@ export class AuthController {
         maxAge: 24 * 60 * 60 * 1000,
       });
 
-      return response.json({ message: "Login realizado" });
+    return response.json({ message: "Login realizado" });
 
   }
 
   
 async me(request: Request, response: Response) {
+  const token = request.cookies.auth_token;
+
+  if(!token){
+    return response.json({ error: "no token"})
+  }
+
+  console.log(token);
+
   const user = await prisma.user.findUnique({
     where: {
       id: request.user.id,

@@ -9,7 +9,6 @@ import { civilServantRoutes } from "./routes/civilServant.routes";
 import { userRoutes } from "./routes/user.routes";
 import { studentRoutes } from "./routes/student.routes";
 import { campusRoutes } from "./routes/campus.routes";
-import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -19,7 +18,6 @@ app.use(
     credentials: true,
   }),
 );
-app.use(cookieParser());
 
 app.use(express.json());
 

@@ -49,27 +49,12 @@ export class AuthController {
       password
     );
 
-    response.cookie("auth_token", result.token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-        maxAge: 24 * 60 * 60 * 1000,
-      });
-
-    return response.json({ message: "Login realizado" });
+    return response.status(200).json(result);
 
   }
 
   
 async me(request: Request, response: Response) {
-  const token = request.cookies.auth_token;
-
-  if(!token){
-    return response.json({ error: "no token"})
-  }
-
-  console.log(token);
 
   const user = await prisma.user.findUnique({
     where: {

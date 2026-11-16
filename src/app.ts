@@ -9,6 +9,7 @@ import { civilServantRoutes } from "./routes/civilServant.routes";
 import { userRoutes } from "./routes/user.routes";
 import { studentRoutes } from "./routes/student.routes";
 import { campusRoutes } from "./routes/campus.routes";
+import { prisma } from "./prisma/client";
 
 const app = express();
 
@@ -20,6 +21,31 @@ app.use(
 );
 
 app.use(express.json());
+
+
+app.get("/", (_req, res) => {
+  res.type("html").send(`
+    <!doctype html>
+    <html lang="pt-BR">
+      <head>
+        <meta charset="utf-8">
+        <title>Deppi API</title>
+      </head>
+      <body>
+        <h1>nada pra ver aqui</h1>
+      </body>
+    </html>
+  `);
+});
+
+app.get("/health", async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: "ok", uptime: process.uptime() });
+  } catch {
+    res.status(503).json({ status: "degradado" });
+  }
+});
 
 app.use("/auth", authRoutes);
 app.use(permissionRouter);

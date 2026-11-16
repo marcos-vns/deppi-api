@@ -6,7 +6,7 @@ export async function AuthMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
   if (!authHeader) {
     return res.status(401).json({
@@ -18,7 +18,7 @@ export async function AuthMiddleware(
 
   if (!token) {
     return res.status(401).json({
-      error: "Token inválido",
+      error: "Token não encontrado",
     });
   }
 

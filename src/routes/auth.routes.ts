@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/AuthController";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 import { permissionMiddleware } from "@/middlewares/permission.middleware";
 import { validate } from "@/middlewares/validate.middleware";
 import { registerStudentSchema } from "@/schemas/registerstudent.schema";

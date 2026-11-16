@@ -1,8 +1,9 @@
 import crypto from "crypto";
 import path from "path";
 import { prisma } from "@/prisma/client";
-import { supabase, STORAGE_BUCKET_COVER } from "../lib/supabase";
+import { saveFile } from "../lib/supabase";
 import { showCoverRequest, uploadCoverRequest } from "@/model/CourseCoverRequest";
+import { saveFileLocally } from "../lib/localStorage";
 
 export class CourseCoverService {
   async show({ courseId }: showCoverRequest) {
@@ -51,19 +52,14 @@ export class CourseCoverService {
     const extension = path.extname(file.originalname).toLowerCase();
     const filename = `${hash}${extension}`;
 
-    const { error } = await supabase.storage
-      .from(STORAGE_BUCKET_COVER)
-      .upload(filename, file.buffer, {
-        contentType: file.mimetype,
-      });
+    let filePath: string; 
 
-    if (error) {
-      throw new Error(`Erro ao enviar imagem: ${error.message}`);
+    if(process.env.APP_ENV === "production"){
+      const { data } = await saveFile(filename, file);
+      filePath = data.publicUrl;
+    } else {
+      filePath = await saveFileLocally(filename, file);
     }
-
-    const { data } = supabase.storage
-      .from(STORAGE_BUCKET_COVER)
-      .getPublicUrl(filename);
 
     const uploadedFile = await prisma.file.create({
       data: {
@@ -71,7 +67,7 @@ export class CourseCoverService {
         originalName: file.originalname,
         mimeType: file.mimetype,
         size: file.size,
-        path: data.publicUrl,
+        path: filePath,
       },
     });
 

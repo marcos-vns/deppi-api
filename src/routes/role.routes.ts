@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { RoleController } from "@/controllers/RoleController";
 import { permissionMiddleware } from "@/middlewares/permission.middleware";
-import { AuthMiddleware } from "@/middlewares/AuthMiddleware";
+import { AuthMiddleware } from "@/middlewares/authMiddleware";
 
 const router = Router();
 const controller = new RoleController();

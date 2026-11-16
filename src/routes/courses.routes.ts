@@ -2,8 +2,8 @@ import { Router } from "express";
 import { CourseController } from "../controllers/CourseController";
 import { CourseCoverController } from "../controllers/CourseCoverController";
 import { permissionMiddleware } from "../middlewares/permission.middleware";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
-import { upload } from "../middlewares/UploadMiddleware";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
+import { upload } from "../middlewares/uploadMiddleware";
 import { permission } from "process";
 
 const router = Router();

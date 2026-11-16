@@ -20,8 +20,6 @@ export class CourseCoverController {
     } catch (e: any) {
       return res.status(400).json({ error: e.message });
   }
-
-    
   }
 
   async show(req: Request, res: Response) {

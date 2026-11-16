@@ -12,6 +12,21 @@ app.get("/health", async (req, res) => {
 }
 });
 
+app.get("/", (_req, res) => {
+  res.type("html").send(`
+    <!doctype html>
+    <html lang="pt-BR">
+      <head>
+        <meta charset="utf-8">
+        <title>Deppi API</title>
+      </head>
+      <body>
+        <h1>nada pra ver aqui</h1>
+      </body>
+    </html>
+  `);
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log("Server running");
 });

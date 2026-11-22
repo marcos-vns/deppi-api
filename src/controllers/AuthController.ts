@@ -49,7 +49,20 @@ export class AuthController {
       password
     );
 
-    return response.status(200).json(result);
+    return result ? 
+    response.status(200).json({
+      "sucess": true,
+      "data": {
+        "token": result
+      },
+    })
+    : response.status(422).json({
+        "success": false,
+        "error": {
+          "code": "INVALID_CREDENTIALS",
+          "message": "E-mail ou senha inválidos"
+        },
+    });
 
   }
 
@@ -89,7 +102,11 @@ async me(request: Request, response: Response) {
 
   if (!user) {
     return response.status(401).json({
-      error: "Usuário não encontrado",
+      "success": false,
+      "error": {
+        "code": "USER_NOT_FOUND",
+        "message": "Usuário não encontrado",
+      },
     });
   }
 
@@ -103,12 +120,15 @@ async me(request: Request, response: Response) {
     ),
   ];
 
-  return response.json({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    roles,
-    permissions,
+  return response.status(200).json({
+    "success": true,
+    "data": {
+      "id": user.id,
+      "name": user.name,
+      "email": user.email,
+      "roles",
+      "permissions",
+    },
   });
 }
 

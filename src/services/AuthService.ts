@@ -207,7 +207,8 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error("Email ou senha inválidos");
+      console.log("Email ou senha inválidos");
+      return null;
     }
 
     const passwordMatch = await bcrypt.compare(
@@ -216,7 +217,8 @@ export class AuthService {
     );
 
     if (!passwordMatch) {
-      throw new Error("Email ou senha inválidos");
+      console.log("Email ou senha inválidos");
+      return null;
     }
 
     const token = jwt.sign(

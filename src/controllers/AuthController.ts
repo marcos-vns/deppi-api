@@ -126,8 +126,8 @@ async me(request: Request, response: Response) {
       "id": user.id,
       "name": user.name,
       "email": user.email,
-      "roles",
-      "permissions",
+      "roles": roles,
+      "permissions": permissions,
     },
   });
 }
